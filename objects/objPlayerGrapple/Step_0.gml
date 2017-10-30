@@ -21,10 +21,11 @@ sprite_index = sprAmeliaV2;
 }
 
 //CHECKING HOOK       
-if(mouse_check_button_pressed(mb_right)) && (instance_exists(objGrappleBlock))
+if(mouse_check_button_pressed(vk_rshift)) && (instance_exists(objGrappleBlock))
 {
 	instNearestGP = instance_nearest(x, y, objGrappleBlock);
-	if(distance_to_object(objGrappleBlock) < iGrappleRadius)
+
+	if instNearestGP.y < y
 	{
 		mx = instNearestGP.x;
 		my = instNearestGP.y;
@@ -36,6 +37,7 @@ if(mouse_check_button_pressed(mb_right)) && (instance_exists(objGrappleBlock))
 		}
 	}                                   
 }
+
  
 if(active == true){
 	gravity = 0.1;
@@ -43,7 +45,7 @@ if(active == true){
 	y += (my - y) = 0.5;
 }    
 
-if(mouse_check_button_released(mb_right)){
+if(mouse_check_button_released(vk_rshift)){
 active = false;
 } 
 
