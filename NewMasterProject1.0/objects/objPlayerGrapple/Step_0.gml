@@ -3,8 +3,6 @@
 if (place_free(x,y+1)) gravity = 1;
 else gravity = 0;
 
-
-
 if(keyboard_check(ord("D"))){
 hspeed = 3;
 sprite_index = sprAmeliaV2; 
@@ -20,34 +18,68 @@ vspeed += -15;
 sprite_index = sprAmeliaV2;
 }
 
-//CHECKING HOOK       
-if(mouse_check_button_pressed(vk_rshift)) && (instance_exists(objGrappleBlock))
+//CHECKING HOOK
+      
+if(keyboard_check(vk_up)) && (instance_exists(objGrappleBlock))
 {
 	instNearestGP = instance_nearest(x, y, objGrappleBlock);
-
-	if instNearestGP.y < y
+	active = true;
+	
+	if(active == true)
 	{
+		
+		angle_accelerration = -.1 * dcos(angle);
+    
+		angle_velocity += angle_accelerration;
+		angle += angle_velocity;
+    
+		//angle_velocity *= velocity_dampening;
+
+		var new_x = anchor_x + lengthdir_x(distance, angle);
+		var new_y = anchor_y + lengthdir_y(distance, angle);
+
+		hsp = new_x - x;
+		vsp = new_y - y;
+
+		x += hsp;
+		y += vsp;
+		
+	} 
+}
+
+if(keyboard_check_released(vk_up))
+{
+	active = false;
+}
+
+/*
+	instNearestGP = instance_nearest(x, y, objGrappleBlock);
+	if (instNearestGP < iGrappleRadius)
+	{
+		active = true; 
 		mx = instNearestGP.x;
 		my = instNearestGP.y;
 		active = true;
 		vspeed += -5.7;
+	}	
 		if(distance_to_object(objGrappleBlock) > iGrappleRadius)
 		{ 
 			active = false;   
 		}
-	}                                   
 }
-
- 
-if(active == true){
+   
+/*
+                                   
+if(active == true)
+{
 	gravity = 0.1;
-	x += (mx - x) = 0.5;
-	y += (my - y) = 0.5;
+	hspeed = 4;
+	x += hspeed;
+	vspeed += -5.7;
+	y += vspeed;
 }    
-
-if(mouse_check_button_released(vk_rshift)){
-active = false;
-} 
+*/
+ 
 
 /*
 
